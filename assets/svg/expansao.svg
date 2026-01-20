@@ -1,44 +1,55 @@
+<svg width="180" height="180" viewBox="0 0 180 180"
+     xmlns="http://www.w3.org/2000/svg">
 
-# 🌿 **SÍMBOLO 1 — EXPANSÃO (LUMORA)**
+  <defs>
+    <radialGradient id="gradExp" cx="50%" cy="50%" r="60%">
+      <stop offset="0%" stop-color="#d8b980"/>
+      <stop offset="70%" stop-color="#f7f9fb"/>
+      <stop offset="100%" stop-color="#f7f9fb"/>
+    </radialGradient>
+  </defs>
 
-**Chave:** visão ampliada • desdobramento • campo aberto
+  <g transform="translate(90,90)">
 
-## Intenção
+    <!-- Núcleo -->
+    <circle r="8" fill="#d8b980">
+      <animate attributeName="r"
+        values="7;9;7"
+        dur="4s"
+        repeatCount="indefinite"/>
+    </circle>
 
-Representar o momento em que o campo se **abre para revelar padrões** que já estavam presentes, mas ainda não visíveis.
+    <!-- Ondas de expansão -->
+    <g stroke="#142a3f" stroke-width="1" fill="none" opacity="0.55">
+      <circle r="28">
+        <animate attributeName="r"
+          values="26;32;26"
+          dur="4.5s"
+          repeatCount="indefinite"/>
+      </circle>
 
-Não é “explosão”.
-É **irradiação orgânica**.
+      <circle r="52">
+        <animate attributeName="r"
+          values="48;60;48"
+          dur="5s"
+          repeatCount="indefinite"/>
+      </circle>
 
-## Lógica visual
+      <circle r="76">
+        <animate attributeName="r"
+          values="72;90;72"
+          dur="5.5s"
+          repeatCount="indefinite"/>
+      </circle>
+    </g>
 
-* Um **círculo central sutil** (núcleo).
-* Dele partem **linhas radiais curvas** que “respiram” para fora.
-* As linhas não são rígidas: parecem **luz líquida** se expandindo.
+    <!-- Halo luminoso -->
+    <circle r="85" fill="url(#gradExp)" opacity="0.35">
+      <animate attributeName="opacity"
+        values="0.25;0.45;0.25"
+        dur="5s"
+        repeatCount="indefinite"/>
+    </circle>
 
-## Micro-animação (como ele se move)
-
-* As linhas **abrem lentamente** e depois recolhem um pouco.
-* O núcleo central pulsa em leve gradiente dourado.
-* Ritmo: lento, amplo, meditativo.
-
-## Esboço conceitual (ASCII)
-
-```
-        \   |   /
-       --  o  --
-        /   |   \
-      \     |     /
-     --     o     --
-      /     |     \
-        \   |   /
-         -- o --
-```
-
-**Leitura:**
-o “o” central é o campo;
-as linhas curvas são ondas de percepção que se expandem.
-
-
-
-E eu já te entrego os arquivos prontos para colar na pasta `/assets/svg`. 💚
+  </g>
+</svg>
