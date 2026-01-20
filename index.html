@@ -3,127 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Portal Lumora</title>
-
-<style>
-:root {
-  --bg: #f7f9fb;
-  --deep: #142a3f;
-  --gold: #d8b980;
-}
-
-html, body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  font-family: system-ui, -apple-system, Segoe UI, sans-serif;
-  background: var(--bg);
-  color: var(--deep);
-  transition: background 1.2s ease;
-}
-
-#app {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  text-align: center;
-}
-
-.panel {
-  max-width: 700px;
-  padding: 40px;
-  animation: fadeIn 1.2s ease forwards;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-/* ---- SÍMBOLOS (agora clicáveis individualmente) ---- */
-.symbol-row {
-  display: flex;
-  justify-content: space-around;
-  margin-top: 50px;
-  gap: 30px;
-}
-
-.symbol {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  border: 1px solid rgba(20,42,63,0.15);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  background: radial-gradient(circle at center, #ffffff, #eef3f7);
-  transition: all .6s ease;
-  box-shadow: 0 0 12px rgba(216,185,128,0.15);
-}
-
-.symbol:hover {
-  transform: scale(1.06);
-  box-shadow: 0 0 22px rgba(216,185,128,0.45);
-}
-
-/* ---- FEEDBACK ---- */
-#message {
-  margin-top: 30px;
-  min-height: 70px;
-  font-style: italic;
-  opacity: 0;
-  transition: opacity .8s ease;
-}
-
-/* ---- PORTAL ---- */
-#portal {
-  margin-top: 40px;
-  display: none;
-}
-
-.portal-btn {
-  padding: 12px 24px;
-  border: none;
-  background: var(--deep);
-  color: var(--bg);
-  border-radius: 999px;
-  cursor: pointer;
-}
-
-/* ---- PORTAL VISUAL ---- */
-#portal-visual {
-  display: none;
-  margin: 40px auto 0;
-  width: 180px;
-  height: 180px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(216,185,128,.35), rgba(20,42,63,.05));
-  animation: breathe 4s ease-in-out infinite;
-}
-
-@keyframes breathe {
-  0%   { transform: scale(0.96); opacity: .6; }
-  50%  { transform: scale(1.05); opacity: 1; }
-  100% { transform: scale(0.96); opacity: .6; }
-}
-
-/* ---- MÓDULO PILOTO ---- */
-#module {
-  display: none;
-  max-width: 760px;
-}
-
-.card {
-  background: #ffffff;
-  padding: 30px;
-  border-radius: 18px;
-  box-shadow: 0 10px 30px rgba(20,42,63,0.08);
-}
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
 
-<!-- ÁUDIO -->
 <audio id="bg" loop>
   <source src="assets/audio/ambiente.wav" type="audio/wav">
 </audio>
@@ -138,7 +20,7 @@ html, body {
 
 <audio id="sound-act">
   <source src="assets/audio/manifestacao.wav" type="audio/wav">
-</audio>
+</audio>  
 
 <body>
 <div id="app">
@@ -151,7 +33,6 @@ html, body {
     Sua energia já está interagindo com este ambiente.
   </div>
 
-  <!-- TRÊS SÍMBOLOS (agora separados e clicáveis) -->
   <div class="symbol-row">
 
     <div class="symbol" onclick="activate('expansao')">
@@ -171,7 +52,7 @@ html, body {
   <div id="message"></div>
 
   <div id="portal">
-    <p style="opacity:.8">Feche os olhos por 5 segundos. Respire.</p>
+    <p class="hint">Feche os olhos por 5 segundos. Respire.</p>
     <div id="portal-visual"></div>
     <button class="portal-btn" onclick="enterPortal()">
       Atravessar o Portal
@@ -207,10 +88,8 @@ html, body {
       Iniciar Calibração
     </button>
 
-    <div id="calibration" style="margin-top:30px; display:none;">
-      <p>
-        Observe os três padrões abaixo e escolha o que mais ressoa:
-      </p>
+    <div id="calibration">
+      <p>Observe os três padrões abaixo e escolha o que mais ressoa:</p>
 
       <div class="symbol-row">
         <div class="symbol" onclick="feedback('ok')">◯</div>
@@ -218,7 +97,7 @@ html, body {
         <div class="symbol" onclick="feedback('respire')">⬡</div>
       </div>
 
-      <div id="feedback" style="margin-top:20px; font-style:italic;"></div>
+      <div id="feedback"></div>
     </div>
 
   </div>
@@ -226,74 +105,6 @@ html, body {
 
 </div>
 
-<script>
-// INICIA SOM AMBIENTE
-const bg = document.getElementById("bg");
-bg.volume = 0.15;
-bg.play();
-
-// TOCA SOM POR SÍMBOLO
-function playSound(type){
-  if(type === "expansao") document.getElementById("sound-exp").play();
-  if(type === "equilibrio") document.getElementById("sound-align").play();
-  if(type === "acao") document.getElementById("sound-act").play();
-}
-
-// ATIVAÇÃO PRINCIPAL
-function activate(type) {
-  const msg = document.getElementById("message");
-  const portal = document.getElementById("portal");
-  const portalVisual = document.getElementById("portal-visual");
-
-  playSound(type);
-
-  if (type === "expansao") {
-    document.body.style.background = "#eef3ff";
-    msg.innerText =
-      "Você entrou no fluxo da expansão. Padrões começam a se revelar.";
-  }
-  if (type === "equilibrio") {
-    document.body.style.background = "#f1fff5";
-    msg.innerText =
-      "Você acessou a frequência de alinhamento. Tudo tende a se organizar.";
-  }
-  if (type === "acao") {
-    document.body.style.background = "#fff6e8";
-    msg.innerText =
-      "Você ativou a energia de precisão. Intenção e ação convergem.";
-  }
-
-  msg.style.opacity = 1;
-  portal.style.display = "block";
-  portalVisual.style.display = "block";
-}
-
-function enterPortal() {
-  document.getElementById("portal-screen").style.display = "none";
-  document.getElementById("module").style.display = "block";
-}
-
-function startCalibration() {
-  document.getElementById("calibration").style.display = "block";
-}
-
-function feedback(type) {
-  const fb = document.getElementById("feedback");
-
-  if (type === "ok") {
-    fb.innerText =
-      "Você percebeu: sua escolha reflete a ativação que já está em curso.";
-  }
-  if (type === "observe") {
-    fb.innerText =
-      "Observe novamente. Pequenas diferenças também são informação.";
-  }
-  if (type === "respire") {
-    fb.innerText =
-      "Respire e volte ao corpo. O ajuste continua em segundo plano.";
-  }
-}
-</script>
-
+<script src="app.js"></script>
 </body>
 </html>
