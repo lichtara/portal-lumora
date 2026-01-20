@@ -151,6 +151,23 @@ html, body {
   animation: fadeInSoft 1s ease forwards;
 }
 
+/* ----- MODO ESCURO PÓS-PORTAL ----- */
+.dark-mode {
+  background: linear-gradient(180deg, #0b1623, #142a3f);
+  color: #f7f9fb;
+}
+
+.dark-mode .card {
+  background: #0f1d2c;
+  color: #f7f9fb;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+}
+
+.dark-mode .portal-btn {
+  background: #d8b980;
+  color: #142a3f;
+}
+
 @keyframes fadeInSoft {
   from { opacity: 0; }
   to   { opacity: 1; }
