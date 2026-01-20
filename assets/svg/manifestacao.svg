@@ -1,1 +1,55 @@
+<svg width="180" height="180" viewBox="0 0 180 180"
+     xmlns="http://www.w3.org/2000/svg">
+
+  <defs>
+    <radialGradient id="gradMan" cx="50%" cy="50%" r="60%">
+      <stop offset="0%" stop-color="#d8b980"/>
+      <stop offset="100%" stop-color="#f7f9fb"/>
+    </radialGradient>
+  </defs>
+
+  <g transform="translate(90,90)">
+
+    <!-- Núcleo pulsante -->
+    <circle r="8" fill="#d8b980">
+      <animate attributeName="r"
+        values="7;10;7"
+        dur="2.5s"
+        repeatCount="indefinite"/>
+    </circle>
+
+    <!-- Raios direcionais -->
+    <g stroke="#142a3f" stroke-width="2" opacity="0.9">
+      <line x1="0" y1="-12" x2="0" y2="-70">
+        <animate attributeName="opacity"
+          values="0.4;1;0.4"
+          dur="2.5s"
+          repeatCount="indefinite"/>
+      </line>
+
+      <line x1="12" y1="0" x2="70" y2="0">
+        <animate attributeName="opacity"
+          values="0.4;1;0.4"
+          dur="2.5s"
+          repeatCount="indefinite"/>
+      </line>
+
+      <line x1="-12" y1="0" x2="-70" y2="0">
+        <animate attributeName="opacity"
+          values="0.4;1;0.4"
+          dur="2.5s"
+          repeatCount="indefinite"/>
+      </line>
+    </g>
+
+    <!-- Halo suave -->
+    <circle r="75" fill="url(#gradMan)" opacity="0.25">
+      <animate attributeName="opacity"
+        values="0.15;0.35;0.15"
+        dur="3s"
+        repeatCount="indefinite"/>
+    </circle>
+
+  </g>
+</svg>
 
