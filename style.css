@@ -137,3 +137,21 @@ html, body {
   opacity: 0.8;
 }
 
+/* ----- FADE DE TRAVESSIA ----- */
+.fade-out {
+  animation: fadeOut 0.9s ease forwards;
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+
+.fade-in {
+  animation: fadeInSoft 1s ease forwards;
+}
+
+@keyframes fadeInSoft {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
