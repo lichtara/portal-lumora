@@ -4,22 +4,21 @@
   <defs>
     <radialGradient id="gradExp" cx="50%" cy="50%" r="60%">
       <stop offset="0%" stop-color="#d8b980"/>
-      <stop offset="70%" stop-color="#f7f9fb"/>
-      <stop offset="100%" stop-color="#f7f9fb"/>
+      <stop offset="80%" stop-color="#f7f9fb"/>
     </radialGradient>
   </defs>
 
   <g transform="translate(90,90)">
 
-    <!-- Núcleo -->
-    <circle r="8" fill="#d8b980">
+    <!-- Núcleo vivo -->
+    <circle r="9" fill="#d8b980">
       <animate attributeName="r"
-        values="7;9;7"
-        dur="4s"
+        values="8;10;8"
+        dur="3.8s"
         repeatCount="indefinite"/>
     </circle>
 
-    <!-- Ondas de expansão -->
+    <!-- Três ondas orgânicas -->
     <g stroke="#142a3f" stroke-width="1" fill="none" opacity="0.55">
       <circle r="28">
         <animate attributeName="r"
@@ -28,25 +27,25 @@
           repeatCount="indefinite"/>
       </circle>
 
-      <circle r="52">
+      <circle r="55">
         <animate attributeName="r"
-          values="48;60;48"
-          dur="5s"
+          values="52;62;52"
+          dur="5.2s"
           repeatCount="indefinite"/>
       </circle>
 
-      <circle r="76">
+      <circle r="82">
         <animate attributeName="r"
-          values="72;90;72"
-          dur="5.5s"
+          values="78;95;78"
+          dur="6s"
           repeatCount="indefinite"/>
       </circle>
     </g>
 
-    <!-- Halo luminoso -->
-    <circle r="85" fill="url(#gradExp)" opacity="0.35">
+    <!-- Halo translúcido -->
+    <circle r="90" fill="url(#gradExp)" opacity="0.3">
       <animate attributeName="opacity"
-        values="0.25;0.45;0.25"
+        values="0.2;0.45;0.2"
         dur="5s"
         repeatCount="indefinite"/>
     </circle>
