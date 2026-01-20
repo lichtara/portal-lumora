@@ -41,8 +41,21 @@ function activate(type) {
 
 // Travessia do portal
 function enterPortal() {
-  document.getElementById("portal-screen").style.display = "none";
-  document.getElementById("module").style.display = "block";
+  const portalScreen = document.getElementById("portal-screen");
+  const module = document.getElementById("module");
+
+  // 1) fade out do Portal
+  portalScreen.classList.add("fade-out");
+
+  // 2) espera o fade acabar e troca de tela
+  setTimeout(() => {
+    portalScreen.style.display = "none";
+
+    // 3) mostra módulo com fade-in
+    module.style.display = "block";
+    module.classList.add("fade-in");
+
+  }, 900);
 }
 
 // Mostrar calibração
