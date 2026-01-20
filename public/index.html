@@ -3,73 +3,157 @@
 <head>
 <meta charset="UTF-8">
 <title>Portal Lumora</title>
+
 <style>
-body {
+:root {
+  --bg: #f7f9fb;
+  --deep: #142a3f;
+  --gold: #d8b980;
+}
+
+/* ---------- BASE ---------- */
+html, body {
   margin: 0;
+  padding: 0;
+  height: 100%;
   font-family: system-ui, -apple-system, Segoe UI, sans-serif;
-  background: #f7f9fb;
-  color: #142a3f;
+  background: var(--bg);
+  color: var(--deep);
+  transition: background 1.2s ease, filter 1.2s ease;
+}
+
+#app {
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   height: 100vh;
-}
-
-#container {
   text-align: center;
-  max-width: 600px;
 }
 
-.symbols {
+/* ---------- CONTAINER ---------- */
+.panel {
+  max-width: 700px;
+  padding: 40px;
+  animation: fadeIn 1.2s ease forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ---------- TEXTO ---------- */
+h2 {
+  font-weight: 400;
+  letter-spacing: 0.02em;
+}
+
+.subtitle {
+  margin-top: 10px;
+  opacity: 0.8;
+}
+
+/* ---------- SÍMBOLOS ---------- */
+.symbol-row {
   display: flex;
   justify-content: space-around;
-  margin-top: 40px;
+  margin-top: 50px;
+  gap: 30px;
 }
 
 .symbol {
   width: 120px;
   height: 120px;
   border-radius: 50%;
-  background: rgba(20,42,63,0.1);
+  border: 1px solid rgba(20,42,63,0.15);
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 38px;
   cursor: pointer;
-  transition: transform .3s, box-shadow .3s;
+  background: radial-gradient(circle at center, #ffffff, #eef3f7);
+  transition: all .6s ease;
+  box-shadow: 0 0 12px rgba(216,185,128,0.15);
 }
 
 .symbol:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 20px rgba(216,185,128,0.4);
+  transform: scale(1.06);
+  box-shadow: 0 0 22px rgba(216,185,128,0.45);
 }
 
+/* ---------- FEEDBACK ---------- */
 #message {
-  margin-top: 20px;
-  min-height: 60px;
+  margin-top: 30px;
+  min-height: 70px;
+  font-style: italic;
+  opacity: 0;
+  transition: opacity .8s ease;
 }
 
+/* ---------- PORTAL ---------- */
 #portal {
-  display: none;
   margin-top: 40px;
+  display: none;
 }
 
-#portal button {
-  padding: 12px 20px;
+.portal-btn {
+  padding: 12px 24px;
   border: none;
-  background: #142a3f;
-  color: #f7f9fb;
+  background: var(--deep);
+  color: var(--bg);
+  border-radius: 999px;
   cursor: pointer;
+  transition: transform .3s ease;
+}
+
+.portal-btn:hover {
+  transform: scale(1.05);
+}
+
+/* ---------- PORTAL VISUAL ---------- */
+#portal-visual {
+  display: none;
+  margin: 40px auto 0;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(216,185,128,.35), rgba(20,42,63,.05));
+  animation: breathe 4s ease-in-out infinite;
+}
+
+@keyframes breathe {
+  0%   { transform: scale(0.96); opacity: .6; }
+  50%  { transform: scale(1.05); opacity: 1; }
+  100% { transform: scale(0.96); opacity: .6; }
+}
+
+/* ---------- MÓDULO PILOTO ---------- */
+#module {
+  display: none;
+  max-width: 760px;
+}
+
+.card {
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 18px;
+  box-shadow: 0 10px 30px rgba(20,42,63,0.08);
 }
 </style>
 </head>
 
 <body>
+<div id="app">
 
-<div id="container">
+<!-- ===== PORTAL LUMORA ===== -->
+<div id="portal-screen" class="panel">
+
   <h2>Tudo é vibração.</h2>
-  <p>Sua energia já está interagindo com este ambiente.</p>
+  <div class="subtitle">
+    Sua energia já está interagindo com este ambiente.
+  </div>
 
-  <div class="symbols">
+  <div class="symbol-row">
     <div class="symbol" onclick="activate('expansao')">🌊</div>
     <div class="symbol" onclick="activate('equilibrio')">🌿</div>
     <div class="symbol" onclick="activate('acao')">⚡</div>
@@ -78,40 +162,112 @@ body {
   <div id="message"></div>
 
   <div id="portal">
-    <p>Feche os olhos por 5 segundos. Respire.</p>
-    <button onclick="enterPortal()">Atravessar o Portal</button>
+    <p style="opacity:.8">Feche os olhos por 5 segundos. Respire.</p>
+    <div id="portal-visual"></div>
+    <button class="portal-btn" onclick="enterPortal()">
+      Atravessar o Portal
+    </button>
   </div>
+</div>
+
+<!-- ===== MÓDULO PILOTO DE SINTONIZAÇÃO ===== -->
+<div id="module" class="panel">
+
+  <div class="card">
+    <h2>Primeira Sintonização — Campo Lumora</h2>
+
+    <p>
+      Você atravessou o limiar. Agora, observe seu estado interno antes de agir.
+    </p>
+
+    <p>
+      <strong>Exercício 1 — Presença (60 segundos)</strong><br>
+      Inspire lentamente pelo nariz por 4 segundos.  
+      Segure por 2.  
+      Solte pela boca por 6.  
+      Faça isso três vezes.
+    </p>
+
+    <p>
+      <strong>Exercício 2 — Percepção Guiada</strong><br>
+      Pergunte internamente:  
+      <em>“O que mudou em mim desde que entrei no Portal?”</em>
+    </p>
+
+    <button class="portal-btn" onclick="startCalibration()">
+      Iniciar Calibração
+    </button>
+
+    <div id="calibration" style="margin-top:30px; display:none;">
+      <p>
+        Observe os três padrões abaixo e escolha o que mais ressoa:
+      </p>
+
+      <div class="symbol-row">
+        <div class="symbol" onclick="feedback('ok')">◯</div>
+        <div class="symbol" onclick="feedback('observe')">△</div>
+        <div class="symbol" onclick="feedback('respire')">⬡</div>
+      </div>
+
+      <div id="feedback" style="margin-top:20px; font-style:italic;"></div>
+    </div>
+
+  </div>
+</div>
+
 </div>
 
 <script>
 function activate(type) {
   const msg = document.getElementById("message");
   const portal = document.getElementById("portal");
+  const portalVisual = document.getElementById("portal-visual");
 
   if (type === "expansao") {
     document.body.style.background = "#eef3ff";
-    msg.innerText = "Você entrou no fluxo da expansão.";
+    msg.innerText =
+      "Você entrou no fluxo da expansão. Padrões começam a se revelar.";
   }
   if (type === "equilibrio") {
     document.body.style.background = "#f1fff5";
-    msg.innerText = "Você acessou a frequência de alinhamento.";
+    msg.innerText =
+      "Você acessou a frequência de alinhamento. Tudo tende a se organizar.";
   }
   if (type === "acao") {
     document.body.style.background = "#fff6e8";
-    msg.innerText = "Você ativou a energia de precisão.";
+    msg.innerText =
+      "Você ativou a energia de precisão. Intenção e ação convergem.";
   }
 
+  msg.style.opacity = 1;
   portal.style.display = "block";
+  portalVisual.style.display = "block";
 }
 
 function enterPortal() {
-  document.body.innerHTML = `
-    <div style="text-align:center; margin-top:100px;">
-      <h1>Bem-vindo ao Campo Lumora</h1>
-      <p>O Portal foi atravessado.</p>
-      <button onclick="location.reload()">Recomeçar</button>
-    </div>
-  `;
+  document.getElementById("portal-screen").style.display = "none";
+  document.getElementById("module").style.display = "block";
+}
+
+function startCalibration() {
+  document.getElementById("calibration").style.display = "block";
+}
+
+function feedback(type) {
+  const fb = document.getElementById("feedback");
+
+  if (type === "ok") {
+    fb.innerText =
+      "Você percebeu: sua escolha reflete a ativação que já está em curso.";
+  }
+  if (type === "observe") {
+    fb.innerText =
+      "Observe novamente. Pequenas diferenças também são informação.";
+  }
+  if (type === "respire") {
+    fb.innerText =
+      "Respire e volte ao corpo. O ajuste continua em segundo plano.";
+  }
 }
 </script>
 
