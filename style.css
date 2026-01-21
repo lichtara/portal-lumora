@@ -184,3 +184,13 @@ html, body {
   from { opacity: 0; }
   to   { opacity: 1; }
 }
+
+.symbol.pulse {
+  animation: softPulse 0.7s ease-in-out;
+}
+
+@keyframes softPulse {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.07); }
+  100% { transform: scale(1); }
+}
