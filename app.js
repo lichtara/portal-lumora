@@ -81,3 +81,73 @@ function feedback(type) {
       "Respire e volte ao corpo. O ajuste continua em segundo plano.";
   }
 }
+
+// sons
+const bg = document.getElementById("bg");
+bg.volume = 0.12;
+bg.play();
+
+// micro-sons (curtos)
+const soundExp = document.getElementById("sound-exp");
+const soundAlign = document.getElementById("sound-align");
+const soundAct = document.getElementById("sound-act");
+
+// função de pulso visual
+function pulseSymbol(imgElement) {
+  imgElement.classList.add("pulsing");
+
+  setTimeout(() => {
+    imgElement.classList.remove("pulsing");
+  }, 700);
+}
+
+// hover = micro-evento de cristal
+document.querySelectorAll(".symbol img").forEach(img => {
+  img.addEventListener("mouseenter", () => {
+    pulseSymbol(img);
+
+    // som curtinho e baixo no hover
+    const clone = soundAlign.cloneNode(true);
+    clone.volume = 0.15;
+    clone.play();
+  });
+});
+
+// clique = som principal + pulso mais intencional
+function activate(type) {
+  const msg = document.getElementById("message");
+  const portal = document.getElementById("portal");
+  const portalVisual = document.getElementById("portal-visual");
+
+  // toca som específico + pulsa símbolo correspondente
+  if (type === "expansao") {
+    soundExp.volume = 0.35;
+    soundExp.play();
+    pulseSymbol(document.querySelector('img[src*="expansao"]'));
+    document.body.style.background = "#eef3ff";
+    msg.innerText =
+      "Você entrou no fluxo da expansão. Padrões começam a se revelar.";
+  }
+
+  if (type === "equilibrio") {
+    soundAlign.volume = 0.35;
+    soundAlign.play();
+    pulseSymbol(document.querySelector('img[src*="alinhamento"]'));
+    document.body.style.background = "#f1fff5";
+    msg.innerText =
+      "Você acessou a frequência de alinhamento. Tudo tende a se organizar.";
+  }
+
+  if (type === "acao") {
+    soundAct.volume = 0.35;
+    soundAct.play();
+    pulseSymbol(document.querySelector('img[src*="manifestacao"]'));
+    document.body.style.background = "#fff6e8";
+    msg.innerText =
+      "Você ativou a energia de precisão. Intenção e ação convergem.";
+  }
+
+  msg.style.opacity = 1;
+  portal.style.display = "block";
+  portalVisual.style.display = "block";
+}
