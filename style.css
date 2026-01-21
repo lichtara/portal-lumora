@@ -168,6 +168,18 @@ html, body {
   color: #142a3f;
 }
 
+/* ----- PULSO SINCRONIZADO DOS SÍMBOLOS ----- */
+.symbol img.pulsing {
+  animation: softPulse 0.7s ease-in-out;
+}
+
+@keyframes softPulse {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
+
+
 @keyframes fadeInSoft {
   from { opacity: 0; }
   to   { opacity: 1; }
