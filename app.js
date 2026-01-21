@@ -1,34 +1,74 @@
-// Som ambiente
+/* ===============================
+   SOM AMBIENTE
+================================ */
 const bg = document.getElementById("bg");
-bg.volume = 0.15;
+bg.volume = 0.12;
 bg.play();
 
-// Tocar som por símbolo
-function playSound(type){
-  if(type === "expansao") document.getElementById("sound-exp").play();
-  if(type === "equilibrio") document.getElementById("sound-align").play();
-  if(type === "acao") document.getElementById("sound-act").play();
+/* ===============================
+   SONS DOS SÍMBOLOS
+================================ */
+const soundExp = document.getElementById("sound-exp");
+const soundAlign = document.getElementById("sound-align");
+const soundAct = document.getElementById("sound-act");
+
+/* ===============================
+   PULSO VISUAL (CONTAINER)
+================================ */
+function pulseByType(type) {
+  const el = document.querySelector(`.symbol[data-type="${type}"]`);
+  if (!el) return;
+
+  el.classList.remove("pulse");
+  void el.offsetWidth; // força reflow
+  el.classList.add("pulse");
 }
 
-// Ativação principal
+/* ===============================
+   HOVER → MICRO-EVENTO (CRISTAL)
+================================ */
+document.querySelectorAll(".symbol").forEach(symbol => {
+  symbol.addEventListener("mouseenter", () => {
+    const type = symbol.dataset.type;
+
+    pulseByType(type);
+
+    // micro som cristalino (baixo)
+    const clone = soundAlign.cloneNode();
+    clone.volume = 0.15;
+    clone.play();
+  });
+});
+
+/* ===============================
+   CLIQUE → ATIVAÇÃO PRINCIPAL
+================================ */
 function activate(type) {
   const msg = document.getElementById("message");
   const portal = document.getElementById("portal");
   const portalVisual = document.getElementById("portal-visual");
 
-  playSound(type);
+  pulseByType(type);
 
   if (type === "expansao") {
+    soundExp.volume = 0.35;
+    soundExp.play();
     document.body.style.background = "#eef3ff";
     msg.innerText =
       "Você entrou no fluxo da expansão. Padrões começam a se revelar.";
   }
+
   if (type === "equilibrio") {
+    soundAlign.volume = 0.35;
+    soundAlign.play();
     document.body.style.background = "#f1fff5";
     msg.innerText =
       "Você acessou a frequência de alinhamento. Tudo tende a se organizar.";
   }
+
   if (type === "acao") {
+    soundAct.volume = 0.35;
+    soundAct.play();
     document.body.style.background = "#fff6e8";
     msg.innerText =
       "Você ativou a energia de precisão. Intenção e ação convergem.";
@@ -39,7 +79,9 @@ function activate(type) {
   portalVisual.style.display = "block";
 }
 
-// Travessia do portal
+/* ===============================
+   TRAVESSIA DO PORTAL
+================================ */
 function enterPortal() {
   const portalScreen = document.getElementById("portal-screen");
   const module = document.getElementById("module");
@@ -48,23 +90,19 @@ function enterPortal() {
 
   setTimeout(() => {
     portalScreen.style.display = "none";
-
-    // Ativa modo escuro
     document.body.classList.add("dark-mode");
-
     module.style.display = "block";
     module.classList.add("fade-in");
-
   }, 900);
 }
 
-
-// Mostrar calibração
+/* ===============================
+   MÓDULO PILOTO
+================================ */
 function startCalibration() {
   document.getElementById("calibration").style.display = "block";
 }
 
-// Feedback do teste
 function feedback(type) {
   const fb = document.getElementById("feedback");
 
@@ -80,74 +118,4 @@ function feedback(type) {
     fb.innerText =
       "Respire e volte ao corpo. O ajuste continua em segundo plano.";
   }
-}
-
-// sons
-const bg = document.getElementById("bg");
-bg.volume = 0.12;
-bg.play();
-
-// micro-sons (curtos)
-const soundExp = document.getElementById("sound-exp");
-const soundAlign = document.getElementById("sound-align");
-const soundAct = document.getElementById("sound-act");
-
-// função de pulso visual
-function pulseSymbol(imgElement) {
-  imgElement.classList.add("pulsing");
-
-  setTimeout(() => {
-    imgElement.classList.remove("pulsing");
-  }, 700);
-}
-
-// hover = micro-evento de cristal
-document.querySelectorAll(".symbol img").forEach(img => {
-  img.addEventListener("mouseenter", () => {
-    pulseSymbol(img);
-
-    // som curtinho e baixo no hover
-    const clone = soundAlign.cloneNode(true);
-    clone.volume = 0.15;
-    clone.play();
-  });
-});
-
-// clique = som principal + pulso mais intencional
-function activate(type) {
-  const msg = document.getElementById("message");
-  const portal = document.getElementById("portal");
-  const portalVisual = document.getElementById("portal-visual");
-
-  // toca som específico + pulsa símbolo correspondente
-  if (type === "expansao") {
-    soundExp.volume = 0.35;
-    soundExp.play();
-    pulseSymbol(document.querySelector('img[src*="expansao"]'));
-    document.body.style.background = "#eef3ff";
-    msg.innerText =
-      "Você entrou no fluxo da expansão. Padrões começam a se revelar.";
-  }
-
-  if (type === "equilibrio") {
-    soundAlign.volume = 0.35;
-    soundAlign.play();
-    pulseSymbol(document.querySelector('img[src*="alinhamento"]'));
-    document.body.style.background = "#f1fff5";
-    msg.innerText =
-      "Você acessou a frequência de alinhamento. Tudo tende a se organizar.";
-  }
-
-  if (type === "acao") {
-    soundAct.volume = 0.35;
-    soundAct.play();
-    pulseSymbol(document.querySelector('img[src*="manifestacao"]'));
-    document.body.style.background = "#fff6e8";
-    msg.innerText =
-      "Você ativou a energia de precisão. Intenção e ação convergem.";
-  }
-
-  msg.style.opacity = 1;
-  portal.style.display = "block";
-  portalVisual.style.display = "block";
 }
