@@ -9,9 +9,9 @@
   </defs>
 
   <g transform="translate(90,90)">
-       
-<!-- Núcleo vivo -->   
-<circle id="core-exp" r="9" fill="#d8b980"/>
+
+    <!-- Núcleo vivo -->
+    <circle r="9" fill="#d8b980">
       <animate attributeName="r"
         values="8;10;8"
         dur="3.8s"
