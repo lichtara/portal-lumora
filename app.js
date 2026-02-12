@@ -1,4 +1,40 @@
 /* ===============================
+   ESTADO GLOBAL DO PORTAL
+================================ */
+let portalState = "portal";
+
+function enterPortal() {
+  setState("sintonizacao");
+}
+
+function startCalibration() {
+  setState("calibracao");
+}
+
+function setState(state) {
+  portalState = state;
+
+  document.getElementById("portal-screen").style.display = "none";
+  document.getElementById("sintonizacao-screen").style.display = "none";
+  document.getElementById("calibration-screen").style.display = "none";
+
+  if (state === "portal") {
+    document.getElementById("portal-screen").style.display = "block";
+  }
+
+  if (state === "sintonizacao") {
+    document.getElementById("sintonizacao-screen").style.display = "block";
+    document.body.className = "estado-sintonizacao";
+  }
+
+  if (state === "calibracao") {
+    document.getElementById("calibration-screen").style.display = "block";
+    document.body.className = "estado-calibracao";
+  }
+}
+
+
+/* ===============================
    SOM AMBIENTE
 ================================ */
 const bg = document.getElementById("bg");
@@ -83,16 +119,14 @@ function activate(type) {
    TRAVESSIA DO PORTAL
 ================================ */
 function enterPortal() {
+
   const portalScreen = document.getElementById("portal-screen");
-  const module = document.getElementById("module");
 
   portalScreen.classList.add("fade-out");
 
   setTimeout(() => {
-    portalScreen.style.display = "none";
-    document.body.classList.add("dark-mode");
-    module.style.display = "block";
-    module.classList.add("fade-in");
+    setState("sintonizacao");
+    document.getElementById("bg").play();
   }, 900);
 }
 
@@ -100,7 +134,16 @@ function enterPortal() {
    MÓDULO PILOTO
 ================================ */
 function startCalibration() {
-  document.getElementById("calibration").style.display = "block";
+
+  const sint = document.getElementById("sintonizacao-screen");
+
+  sint.classList.add("fade-out");
+
+  setTimeout(() => {
+    setState("calibracao");
+    soundAlign.volume = 0.35;
+    soundAlign.play();
+  }, 700);
 }
 
 function feedback(type) {
@@ -119,3 +162,7 @@ function feedback(type) {
       "Respire e volte ao corpo. O ajuste continua em segundo plano.";
   }
 }
+/* ===============================
+   INICIALIZAÇÃO
+================================ */
+setState("portal");
