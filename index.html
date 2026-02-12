@@ -6,6 +6,8 @@
 <link rel="stylesheet" href="style.css">
 </head>
 
+<body>
+
 <audio id="bg" loop>
   <source src="assets/audio/ambiente.wav" type="audio/wav">
 </audio>
@@ -22,10 +24,9 @@
   <source src="assets/audio/manifestacao.wav" type="audio/wav">
 </audio>
 
-<body>
 <div id="app">
 
-<!-- ===== PORTAL LUMORA ===== -->
+<!-- ===== ESTADO 1 — PORTAL ===== -->
 <div id="portal-screen" class="panel">
 
   <h2>Tudo é vibração.</h2>
@@ -35,16 +36,16 @@
 
   <div class="symbol-row">
 
-    <div class="symbol" onclick="activate('expansao')">
-      <img src="assets/svg/expansao.svg" width="110" height="110">
+    <div class="symbol" data-type="expansao" onclick="activate('expansao')">
+      <img src="assets/svg/expansao.svg" width="110">
     </div>
 
-    <div class="symbol" onclick="activate('equilibrio')">
-      <img src="assets/svg/alinhamento.svg" width="110" height="110">
+    <div class="symbol" data-type="equilibrio" onclick="activate('equilibrio')">
+      <img src="assets/svg/alinhamento.svg" width="110">
     </div>
 
-    <div class="symbol" onclick="activate('acao')">
-      <img src="assets/svg/manifestacao.svg" width="110" height="110">
+    <div class="symbol" data-type="acao" onclick="activate('acao')">
+      <img src="assets/svg/manifestacao.svg" width="110">
     </div>
 
   </div>
@@ -58,29 +59,24 @@
       Atravessar o Portal
     </button>
   </div>
+
 </div>
 
-<!-- ===== MÓDULO PILOTO ===== -->
-<div id="module" class="panel">
+<!-- ===== ESTADO 2 — SINTONIZAÇÃO ===== -->
+<div id="sintonizacao-screen" class="panel" style="display:none">
 
   <div class="card">
     <h2>Primeira Sintonização — Campo Lumora</h2>
 
-    <p>
-      Você atravessou o limiar. Agora, observe seu estado interno antes de agir.
-    </p>
+    <p>Você atravessou o limiar. Agora, observe seu estado interno antes de agir.</p>
 
     <p>
-      <strong>Exercício 1 — Presença (60 segundos)</strong><br>
-      Inspire lentamente pelo nariz por 4 segundos.
-      Segure por 2.
-      Solte pela boca por 6.
-      Faça isso três vezes.
+      <strong>Exercício 1 — Presença</strong><br>
+      Inspire pelo nariz por 4 segundos. Segure por 2. Solte por 6. Repita 3 vezes.
     </p>
 
     <p>
       <strong>Exercício 2 — Percepção Guiada</strong><br>
-      Pergunte internamente:
       <em>“O que mudou em mim desde que entrei no Portal?”</em>
     </p>
 
@@ -88,20 +84,27 @@
       Iniciar Calibração
     </button>
 
-    <div id="calibration-screen" class="panel">
+  </div>
 
-      <p>Observe os três padrões abaixo e escolha o que mais ressoa:</p>
+</div>
 
-      <div class="symbol-row">
-        <div class="symbol" onclick="feedback('ok')">◯</div>
-        <div class="symbol" onclick="feedback('observe')">△</div>
-        <div class="symbol" onclick="feedback('respire')">⬡</div>
-      </div>
+<!-- ===== ESTADO 3 — CALIBRAÇÃO ===== -->
+<div id="calibration-screen" class="panel" style="display:none">
 
-      <div id="feedback"></div>
+  <div class="card">
+
+    <p>Observe os três padrões abaixo e escolha o que mais ressoa:</p>
+
+    <div class="symbol-row">
+      <div class="symbol" onclick="feedback('ok')">◯</div>
+      <div class="symbol" onclick="feedback('observe')">△</div>
+      <div class="symbol" onclick="feedback('respire')">⬡</div>
     </div>
 
+    <div id="feedback"></div>
+
   </div>
+
 </div>
 
 </div>
@@ -109,15 +112,3 @@
 <script src="app.js"></script>
 </body>
 </html>
-
-<div class="symbol" data-type="expansao" onclick="activate('expansao')">
-  <img src="assets/svg/expansao.svg" width="110" height="110" alt="Expansão">
-</div>
-
-<div class="symbol" data-type="equilibrio" onclick="activate('equilibrio')">
-  <img src="assets/svg/alinhamento.svg" width="110" height="110" alt="Alinhamento">
-</div>
-
-<div class="symbol" data-type="acao" onclick="activate('acao')">
-  <img src="assets/svg/manifestacao.svg" width="110" height="110" alt="Manifestação">
-</div>
