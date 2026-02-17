@@ -171,7 +171,9 @@ document.querySelectorAll(".symbol").forEach(symbol => {
    ATIVAÇÃO SIMBÓLICA
 ================================ */
 function activate(type){
-
+   
+  if (type === "equilibrio") type = "alinhamento";
+   
   pulseByType(type);
   incline(type);
 
