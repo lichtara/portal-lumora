@@ -194,3 +194,19 @@ html, body {
   50%  { transform: scale(1.07); }
   100% { transform: scale(1); }
 }
+
+.coerencia-baixa {
+  filter: brightness(0.95);
+}
+
+.coerencia-media {
+  filter: brightness(1);
+}
+
+.coerencia-alta {
+  filter: brightness(1.05);
+}
+
+.coerencia-integrada {
+  filter: brightness(1.1) saturate(1.1);
+}
