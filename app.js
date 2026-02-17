@@ -1,13 +1,5 @@
 import { callHarmonyProtocol } from './harmony.js'
 
-const fieldState = {
-  expansao: 0,
-  alinhamento: 0,
-  acao: 0,
-  pausa: 0,
-  transicao: 0
-};
-
 function collectEstadoCampo() {
   return Object.entries(fieldState).map(([campo, valor]) => ({
     frequencia: campo === 'expansao' ? 450.0 :
@@ -35,7 +27,6 @@ function collectEstadoCampo() {
    04. Redução em Incerteza
    05. Dignidade do Encerramento
 ============================================================ */
-
 
 /* ===============================
    ESTADO GLOBAL DE TELAS
@@ -72,7 +63,6 @@ function setState(state){
     document.body.classList.add("dark-mode");
   }
 }
-
 
 /* ===============================
    MOTOR SIMBÓLICO (LICHTARA)
@@ -147,7 +137,6 @@ function pickSeed(field){
   return arr[Math.floor(Math.random() * arr.length)];
 }
 
-
 /* ===============================
    MICROVARIAÇÕES SENSORIAIS
    ------------------------------------------------
@@ -203,7 +192,6 @@ function adjustSensory(field){
   return delay;
 }
 
-
 /* ===============================
    SONS DE ATIVAÇÃO
    ------------------------------------------------
@@ -228,7 +216,6 @@ function pulseByType(type){
   el.classList.add("pulse");
 }
 
-
 /* ===============================
    HOVER → MICROEVENTO
    ------------------------------------------------
@@ -244,7 +231,6 @@ document.querySelectorAll(".symbol").forEach(symbol => {
     clone.play();
   });
 });
-
 
 /* ===============================
    ATIVAÇÃO SIMBÓLICA
@@ -283,7 +269,6 @@ function activate(type){
   portalVisual.style.display = "block";
 }
 
-
 /* ===============================
    TRAVESSIA
    ------------------------------------------------
@@ -298,13 +283,6 @@ function enterPortal(){
     bg.play();
     incline("transicao", 0.8);
   }, 900);
-}
-setTimeout(() => {
-  setState("sintonizacao");
-  fadeInAmbient();
-  incline("transicao", 0.8);
-}, 900);
-
 
 /* ===============================
    CALIBRAÇÃO
@@ -339,18 +317,6 @@ async function startCalibration(){
    ------------------------------------------------
    Linguagem de apoio, não confirmação.
 ================================ */
-function feedback(type){
-  const fb = document.getElementById("feedback");
-
-  if(type === "ok")
-    fb.innerText = "Algo se acomoda.";
-
-  if(type === "observe")
-    fb.innerText = "Talvez algo queira ser visto com mais calma.";
-
-  if(type === "respire")
-    fb.innerText = "O corpo sabe ajustar.";
-}
 function feedback(type){
   const fb = document.getElementById("feedback");
 
