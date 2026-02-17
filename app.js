@@ -331,9 +331,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 
-document.addEventListener("DOMContentLoaded", () => {
-  setState("portal");
-
   document.querySelectorAll(".symbol").forEach(symbol => {
     symbol.addEventListener("mouseenter", () => {
       pulseByType(symbol.dataset.type);
