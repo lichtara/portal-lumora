@@ -135,7 +135,29 @@ function pickSeed(field){
    Ajustes são sutis, não explicados.
 ================================ */
 const bg = document.getElementById("bg");
-bg.volume = 0.12;
+let bgFading = false;
+
+function fadeInAmbient(target = 0.14, duration = 3000){
+  if(bgFading) return;
+  bgFading = true;
+
+  bg.volume = 0;
+  bg.play();
+
+  const steps = 30;
+  const stepTime = duration / steps;
+  let current = 0;
+
+  const fade = setInterval(() => {
+    current++;
+    bg.volume = Math.min(target, current / steps * target);
+
+    if(current >= steps){
+      clearInterval(fade);
+      bgFading = false;
+    }
+  }, stepTime);
+}
 
 function adjustSensory(field){
 
@@ -257,6 +279,11 @@ function enterPortal(){
     incline("transicao", 0.8);
   }, 900);
 }
+setTimeout(() => {
+  setState("sintonizacao");
+  fadeInAmbient();
+  incline("transicao", 0.8);
+}, 900);
 
 
 /* ===============================
@@ -293,6 +320,27 @@ function feedback(type){
 
   if(type === "respire")
     fb.innerText = "O corpo sabe ajustar.";
+}
+function feedback(type){
+  const fb = document.getElementById("feedback");
+
+  if(type === "ok"){
+    incline("alinhamento", 0.4);
+    adjustSensory("alinhamento");
+    fb.innerText = "Algo se acomoda.";
+  }
+
+  if(type === "observe"){
+    incline("pausa", 0.4);
+    adjustSensory("pausa");
+    fb.innerText = "Talvez algo queira ser visto com mais calma.";
+  }
+
+  if(type === "respire"){
+    incline("transicao", 0.4);
+    adjustSensory("transicao");
+    fb.innerText = "O corpo sabe ajustar.";
+  }
 }
 
 
