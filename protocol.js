@@ -1,3 +1,7 @@
+// protocol.js
+// Constrói o payload canônico para o SYNTARIS Harmony
+// Não coleta estado interno — apenas descreve o campo simbólico
+
 export function buildPayload({ estadoCampo }) {
   return {
     dados_campo_informacional: estadoCampo,
