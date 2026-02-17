@@ -402,4 +402,13 @@ function handleHarmonyResponse(data) {
   }
 }
 
+// ===============================
+// EXPOSIÇÃO CONTROLADA AO HTML
+// (necessário para type="module")
+// ===============================
+window.activate = activate
+window.enterPortal = enterPortal
+window.startCalibration = startCalibration
+window.feedback = feedback
+
 setState("portal");
