@@ -8,7 +8,7 @@ Ele não é um app de produtividade.
 Não é um teste psicológico.
 Não é um oráculo que interpreta o usuário.
 
-O Portal cria um **campo de encontro** onde escolhas simples geram **ressonâncias sensoriais e simbólicas**, permitindo que cada pessoa **se perceba sem ser observada**.
+O Portal cria um **campo de encontro**, onde escolhas simples geram **ressonâncias sensoriais e simbólicas**, permitindo que cada pessoa **se perceba sem ser observada**.
 
 ---
 
@@ -17,7 +17,10 @@ O Portal cria um **campo de encontro** onde escolhas simples geram **ressonânci
 > **O Portal não interpreta o usuário.
 > Ele ressoa com a presença.**
 
-Toda a experiência é guiada por um motor interno que responde **sem diagnosticar, sem registrar identidade e sem conduzir narrativas fixas**.
+Toda a experiência é sustentada por um motor interno que responde **sem diagnosticar, sem registrar identidade e sem conduzir narrativas fixas**.
+
+Nada é pedido além da presença.
+Nada é exigido além da escuta.
 
 ---
 
@@ -31,9 +34,9 @@ O Portal Lumora é sustentado pelo:
 
 O ASRE:
 
-* responde a escolhas simbólicas
+* responde a escolhas simbólicas simples
 * inclina campos de experiência (expansão, alinhamento, ação, pausa, transição)
-* utiliza decaimento natural (nada se fixa)
+* utiliza decaimento natural (nenhum estado se fixa)
 * adapta tempo, som, visual e linguagem
 * não mantém histórico narrativo do usuário
 
@@ -45,7 +48,7 @@ Nada é armazenado como perfil.
 
 ## 🧭 Estrutura da Experiência
 
-A experiência no Portal acontece em **micropercursos**:
+A experiência no Portal acontece por **micropercursos**:
 
 * **Micropercursos Profundos (sistêmicos)**
   → vividos no tempo, na interface e no corpo
@@ -68,9 +71,9 @@ Elas se complementam.
   /svg          → símbolos-base do Portal
   /text
     /arquitetura
-      → ontologia, mapas, modelos simbólicos e sistêmicos
+      → ontologia, mapas e modelos simbólicos
     /micropercursos
-      → textos-guia e mapas declarativos
+      → textos-guia e percursos declarativos
 
 app.js          → motor simbólico + lógica de estado
 index.html      → estrutura do Portal
@@ -94,7 +97,7 @@ Ele apenas sustenta um espaço onde algo pode ser percebido.
 
 ## 🌱 Estado do Projeto
 
-O Portal Lumora está em **fase viva de construção**.
+O Portal Lumora encontra-se em **fase viva de construção**.
 
 Ele evolui por:
 
@@ -110,7 +113,7 @@ Sem roadmap fechado.
 
 ## 🤍 LICHTARA
 
-O Portal Lumora faz parte do **Sistema LICHTARA**, um campo de pesquisa, criação e arquitetura de experiências sensíveis baseadas em presença, simbolismo e consciência.
+O Portal Lumora integra o **Sistema LICHTARA** — um campo de pesquisa e criação de arquiteturas sensíveis baseadas em presença, simbolismo e consciência.
 
 ---
 
