@@ -207,6 +207,12 @@ html, body {
   filter: brightness(1.05);
 }
 
+.fade-out {
+  opacity: 0;
+  transition: opacity 0.9s ease;
+}
+
+
 .coerencia-integrada {
   filter: brightness(1.1) saturate(1.1);
 }
