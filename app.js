@@ -290,7 +290,7 @@ function enterPortal(){
     bg.play();
     incline("transicao", 0.8);
   }, 900);
-
+}
   
 /* ===============================
    CALIBRAÇÃO
