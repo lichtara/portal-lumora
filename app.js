@@ -1,3 +1,5 @@
+import { callHarmonyProtocol } from './harmony.js'
+
 /* ============================================================
    MOTOR DO PORTAL LUMORA — BASE ÉTICA (INVARIANTES)
    ------------------------------------------------------------
