@@ -1,5 +1,27 @@
+/* ============================================================
+   MOTOR DO PORTAL LUMORA — BASE ÉTICA (INVARIANTES)
+   ------------------------------------------------------------
+   Este sistema não observa o usuário.
+   Não diagnostica, não define estados internos,
+   não reivindica saber sobre a consciência alheia.
+
+   Ele apenas sustenta condições simbólicas
+   para que a percepção possa emergir.
+
+   Invariantes ativas neste código:
+   01. Não-Apropriação da Consciência
+   02. Convite Sempre Revogável
+   03. Resposta sem Vigilância
+   04. Redução em Incerteza
+   05. Dignidade do Encerramento
+============================================================ */
+
+
 /* ===============================
    ESTADO GLOBAL DE TELAS
+   ------------------------------------------------
+   As telas representam estados do ambiente,
+   não estados internos do usuário.
 ================================ */
 let portalState = "portal";
 
@@ -31,8 +53,15 @@ function setState(state){
   }
 }
 
+
 /* ===============================
    MOTOR SIMBÓLICO (LICHTARA)
+   ------------------------------------------------
+   fieldState NÃO é um retrato do usuário.
+   É apenas um vetor de inclinação do ambiente.
+
+   O sistema responde simbolicamente,
+   mas nunca declara leitura ou padrão.
 ================================ */
 const fieldState = {
   expansao: 0,
@@ -44,6 +73,9 @@ const fieldState = {
 
 function incline(field, intensity = 1){
   fieldState[field] += intensity;
+
+  // Redução natural dos demais campos
+  // (Princípio da Redução em Incerteza)
   Object.keys(fieldState).forEach(k => {
     if(k !== field) fieldState[k] *= 0.85;
   });
@@ -54,8 +86,13 @@ function getDominantField(){
     .sort((a,b) => b[1] - a[1])[0][0];
 }
 
+
 /* ===============================
    FRASES-SEMENTE
+   ------------------------------------------------
+   Linguagem-guia, não interpretativa.
+   Nenhuma frase afirma estado interno.
+   Todas são convites abertos à percepção.
 ================================ */
 const seeds = {
   expansao: [
@@ -90,19 +127,24 @@ function pickSeed(field){
   return arr[Math.floor(Math.random() * arr.length)];
 }
 
+
 /* ===============================
    MICROVARIAÇÕES SENSORIAIS
+   ------------------------------------------------
+   O sistema adapta clima, não significado.
+   Ajustes são sutis, não explicados.
 ================================ */
 const bg = document.getElementById("bg");
 bg.volume = 0.12;
 
 function adjustSensory(field){
+
   // tempo
   let delay = 3500;
   if(field === "pausa") delay = 6000;
   if(field === "acao")  delay = 2200;
 
-  // som
+  // som (reduz antes de intensificar)
   if(field === "pausa") bg.volume = 0.08;
   if(field === "expansao") bg.volume = 0.14;
   if(field === "acao") bg.volume = 0.18;
@@ -119,15 +161,22 @@ function adjustSensory(field){
   return delay;
 }
 
+
 /* ===============================
    SONS DE ATIVAÇÃO
+   ------------------------------------------------
+   Sons marcam passagem, não conquista.
 ================================ */
 const soundExp   = document.getElementById("sound-exp");
 const soundAlign = document.getElementById("sound-align");
 const soundAct   = document.getElementById("sound-act");
 
+
 /* ===============================
    PULSO VISUAL
+   ------------------------------------------------
+   Micro-resposta estética.
+   Nunca feedback avaliativo.
 ================================ */
 function pulseByType(type){
   const el = document.querySelector(`.symbol[data-type="${type}"]`);
@@ -137,8 +186,12 @@ function pulseByType(type){
   el.classList.add("pulse");
 }
 
+
 /* ===============================
    HOVER → MICROEVENTO
+   ------------------------------------------------
+   Curiosidade sem consequência.
+   (Convite sempre revogável)
 ================================ */
 document.querySelectorAll(".symbol").forEach(symbol => {
   symbol.addEventListener("mouseenter", () => {
@@ -150,8 +203,12 @@ document.querySelectorAll(".symbol").forEach(symbol => {
   });
 });
 
+
 /* ===============================
    ATIVAÇÃO SIMBÓLICA
+   ------------------------------------------------
+   Nenhuma escolha é certa ou errada.
+   O sistema apenas inclina o campo.
 ================================ */
 function activate(type){
 
@@ -184,8 +241,11 @@ function activate(type){
   portalVisual.style.display = "block";
 }
 
+
 /* ===============================
    TRAVESSIA
+   ------------------------------------------------
+   Passagem de ambiente, não de nível.
 ================================ */
 function enterPortal(){
   const portalScreen = document.getElementById("portal-screen");
@@ -198,8 +258,12 @@ function enterPortal(){
   }, 900);
 }
 
+
 /* ===============================
    CALIBRAÇÃO
+   ------------------------------------------------
+   Ajuste do espaço.
+   Nunca ajuste do usuário.
 ================================ */
 function startCalibration(){
   const sint = document.getElementById("sintonizacao-screen");
@@ -212,14 +276,17 @@ function startCalibration(){
   }, 700);
 }
 
+
 /* ===============================
    FEEDBACK SUAVE
+   ------------------------------------------------
+   Linguagem de apoio, não confirmação.
 ================================ */
 function feedback(type){
   const fb = document.getElementById("feedback");
 
   if(type === "ok")
-    fb.innerText = pickSeed("integracao") || "Algo se acomoda.";
+    fb.innerText = "Algo se acomoda.";
 
   if(type === "observe")
     fb.innerText = "Talvez algo queira ser visto com mais calma.";
@@ -228,7 +295,11 @@ function feedback(type){
     fb.innerText = "O corpo sabe ajustar.";
 }
 
+
 /* ===============================
    INIT
+   ------------------------------------------------
+   O Portal começa aberto,
+   mas nunca exige permanência.
 ================================ */
 setState("portal");
