@@ -1,34 +1,31 @@
 /* ============================================================
-   PORTAL LUMORA — APP.JS (VERSÃO CANÔNICA)
+   PORTAL LUMORA — APP.JS (VERSÃO ESTÁVEL)
    ------------------------------------------------------------
-   Este código sustenta um ambiente simbólico.
-   Não observa, não interpreta, não conclui.
+   Sustenta um ambiente simbólico.
+   Não interpreta o usuário.
 ============================================================ */
 
 /* ===============================
    IMPORTS
 ================================ */
-import { callHarmonyProtocol } from './harmony.js'
+import { callHarmonyProtocol } from './harmony.js';
 
 /* ===============================
    ESTADO DE CALIBRAÇÃO
-   ------------------------------------------------
-   Não representa o usuário.
-   Apenas a prontidão do ambiente.
 ================================ */
 let calibrationState = {
   startedAt: null,
   interactions: 0,
   archetype: null,
   coherenceEstimate: 0.35
-}
+};
 
 /* ===============================
    ESTADO GLOBAL DE TELAS
 ================================ */
 let portalState = "portal";
 
-function setState(state){
+function setState(state) {
   portalState = state;
 
   const portal = document.getElementById("portal-screen");
@@ -41,12 +38,12 @@ function setState(state){
 
   document.body.classList.remove("dark-mode");
 
-  if(state === "portal") portal.style.display = "block";
-  if(state === "sintonizacao"){
+  if (state === "portal") portal.style.display = "block";
+  if (state === "sintonizacao") {
     sint.style.display = "block";
     document.body.classList.add("dark-mode");
   }
-  if(state === "calibracao"){
+  if (state === "calibracao") {
     calib.style.display = "block";
     document.body.classList.add("dark-mode");
   }
@@ -63,17 +60,16 @@ const fieldState = {
   transicao: 0
 };
 
-function incline(field, intensity = 1){
+function incline(field, intensity = 1) {
   fieldState[field] += intensity;
-
   Object.keys(fieldState).forEach(k => {
-    if(k !== field) fieldState[k] *= 0.85;
+    if (k !== field) fieldState[k] *= 0.85;
   });
 }
 
-function getDominantField(){
+function getDominantField() {
   return Object.entries(fieldState)
-    .sort((a,b) => b[1] - a[1])[0][0];
+    .sort((a, b) => b[1] - a[1])[0][0];
 }
 
 /* ===============================
@@ -107,45 +103,42 @@ const seeds = {
   ]
 };
 
-function pickSeed(field){
-  const arr = seeds[field];
+function pickSeed(field) {
+  const arr = seeds[field] || seeds.transicao;
   return arr[Math.floor(Math.random() * arr.length)];
 }
 
 /* ===============================
+   ELEMENTOS DE ÁUDIO (referência)
+================================ */
+let bg, soundExp, soundAlign, soundAct;
+
+/* ===============================
    SENSORIAL
 ================================ */
-function adjustSensory(field){
+function adjustSensory(field) {
   let delay = 3500;
-  if(field === "pausa") delay = 6000;
-  if(field === "acao")  delay = 2200;
+  if (field === "pausa") delay = 6000;
+  if (field === "acao")  delay = 2200;
 
-  if(field === "pausa") bg.volume = 0.08;
-  if(field === "expansao") bg.volume = 0.14;
-  if(field === "acao") bg.volume = 0.18;
+  if (bg) {
+    if (field === "pausa") bg.volume = 0.08;
+    if (field === "expansao") bg.volume = 0.14;
+    if (field === "acao") bg.volume = 0.18;
+  }
 
   document.body.style.filter = "none";
-  if(field === "pausa")
-    document.body.style.filter = "brightness(0.92)";
-  if(field === "expansao")
-    document.body.style.filter = "brightness(1.05)";
-  if(field === "acao")
-    document.body.style.filter = "contrast(1.05)";
+  if (field === "pausa") document.body.style.filter = "brightness(0.92)";
+  if (field === "expansao") document.body.style.filter = "brightness(1.05)";
+  if (field === "acao") document.body.style.filter = "contrast(1.05)";
 
   return delay;
 }
 
 /* ===============================
-   SONS
-================================ */
-const soundExp   = document.getElementById("sound-exp");
-const soundAlign = document.getElementById("sound-align");
-const soundAct   = document.getElementById("sound-act");
-
-/* ===============================
    VISUAL
 ================================ */
-function pulseByType(type){
+function pulseByType(type) {
   const el = document.querySelector(`.symbol[data-type="${type}"]`);
   if (!el) return;
   el.classList.remove("pulse");
@@ -154,33 +147,21 @@ function pulseByType(type){
 }
 
 /* ===============================
-   HOVER
-================================ */
-document.querySelectorAll(".symbol").forEach(symbol => {
-  symbol.addEventListener("mouseenter", () => {
-    pulseByType(symbol.dataset.type);
-    const clone = soundAlign.cloneNode();
-    clone.volume = 0.15;
-    clone.play();
-  });
-});
-
-/* ===============================
    ATIVAÇÃO SIMBÓLICA
 ================================ */
-function activate(type){
-   
+function activate(type) {
   if (type === "equilibrio") type = "alinhamento";
-   
+
   pulseByType(type);
   incline(type);
 
   calibrationState.interactions++;
-  calibrationState.archetype ??= type;
+  if (!calibrationState.archetype)
+    calibrationState.archetype = type;
 
-  if(type === "expansao") soundExp.play();
-  if(type === "alinhamento") soundAlign.play();
-  if(type === "acao") soundAct.play();
+  if (type === "expansao" && soundExp) soundExp.play();
+  if (type === "alinhamento" && soundAlign) soundAlign.play();
+  if (type === "acao" && soundAct) soundAct.play();
 
   const dominant = getDominantField();
   const seed = pickSeed(dominant);
@@ -198,21 +179,21 @@ function activate(type){
 /* ===============================
    TRAVESSIA
 ================================ */
-function enterPortal(){
+function enterPortal() {
   document.getElementById("portal-screen")
     .classList.add("fade-out");
 
   setTimeout(() => {
     setState("sintonizacao");
-    bg.play();
+    if (bg) bg.play();
     incline("transicao", 0.8);
   }, 900);
 }
 
 /* ===============================
-   CALIBRAÇÃO (SEM BACKEND)
+   CALIBRAÇÃO
 ================================ */
-function startCalibration(){
+function startCalibration() {
   calibrationState.startedAt = Date.now();
   calibrationState.interactions = 0;
   calibrationState.archetype = null;
@@ -223,40 +204,24 @@ function startCalibration(){
 }
 
 /* ===============================
-   GUARDIÃO
-================================ */
-function shouldCallBackend(){
-  const elapsed =
-    (Date.now() - calibrationState.startedAt) / 1000;
-
-  return (
-    calibrationState.interactions >= 2 &&
-    calibrationState.archetype !== null &&
-    elapsed >= 5 &&
-    calibrationState.coherenceEstimate >= 0.6
-  );
-}
-
-/* ===============================
    FEEDBACK
 ================================ */
-function feedback(type){
+function feedback(type) {
   const fb = document.getElementById("feedback");
 
-  if(type === "observe"){
+  if (type === "observe") {
     incline("pausa", 0.4);
     adjustSensory("pausa");
-    fb.innerText =
-      "Talvez algo queira ser visto com mais calma.";
+    fb.innerText = "Talvez algo queira ser visto com mais calma.";
   }
 
-  if(type === "ok"){
+  if (type === "ok") {
     incline("alinhamento", 0.4);
     adjustSensory("alinhamento");
     fb.innerText = "Algo se acomoda.";
   }
 
-  if(type === "respire"){
+  if (type === "respire") {
     incline("transicao", 0.4);
     adjustSensory("transicao");
     fb.innerText = "O corpo sabe ajustar.";
@@ -264,54 +229,30 @@ function feedback(type){
 }
 
 /* ===============================
-   BACKEND (QUANDO CHAMADO)
+   INICIALIZAÇÃO SEGURA
 ================================ */
-async function maybeCallBackend(){
-  if(!shouldCallBackend()) return;
+document.addEventListener("DOMContentLoaded", () => {
 
-  const estadoCampo = Object.entries(fieldState).map(
-    ([campo, valor]) => ({
-      frequencia:
-        campo === 'expansao' ? 450 :
-        campo === 'alinhamento' ? 432 :
-        campo === 'acao' ? 480 :
-        campo === 'pausa' ? 396 : 420,
-      amplitude: Math.max(0.1, valor)
-    })
-  );
+  bg         = document.getElementById("bg");
+  soundExp   = document.getElementById("sound-exp");
+  soundAlign = document.getElementById("sound-align");
+  soundAct   = document.getElementById("sound-act");
 
-  const resposta =
-    await callHarmonyProtocol(estadoCampo);
+  document.querySelectorAll(".symbol").forEach(symbol => {
+    symbol.addEventListener("mouseenter", () => {
+      pulseByType(symbol.dataset.type);
+      if (soundAlign) {
+        const clone = soundAlign.cloneNode();
+        clone.volume = 0.15;
+        clone.play();
+      }
+    });
+  });
 
-  if(resposta?.coerencia_vibracional !== undefined){
-    calibrationState.coherenceEstimate =
-      resposta.coerencia_vibracional;
-    handleHarmonyResponse(resposta);
-  }
-}
+  window.activate = activate;
+  window.enterPortal = enterPortal;
+  window.startCalibration = startCalibration;
+  window.feedback = feedback;
 
-/* ===============================
-   VISUALIZAÇÃO DE COERÊNCIA
-================================ */
-function handleHarmonyResponse(data){
-  const c = data.coerencia_vibracional;
-  document.body.classList.remove(
-    'coerencia-baixa',
-    'coerencia-media',
-    'coerencia-alta',
-    'coerencia-integrada'
-  );
-
-  if (c < 0.4)
-    document.body.classList.add('coerencia-baixa');
-  else if (c < 0.6)
-    document.body.classList.add('coerencia-media');
-  else if (c < 0.75)
-    document.body.classList.add('coerencia-alta');
-  else
-    document.body.classList.add('coerencia-integrada');
-}
-
-/* ===============================
-   EXPOSIÇÃO AO HTML
-================================ */
+  setState("portal");
+});
