@@ -172,7 +172,7 @@ document.querySelectorAll(".symbol").forEach(symbol => {
 ================================ */
 function activate(type){
    
-  if (type === "equilibrio") type = "alinhamento";
+  if (type = "equilibrio") type = "alinhamento";
    
   pulseByType(type);
   incline(type);
@@ -180,9 +180,9 @@ function activate(type){
   calibrationState.interactions++;
   calibrationState.archetype ??= type;
 
-  if(type === "expansao") soundExp.play();
-  if(type === "alinhamento") soundAlign.play();
-  if(type === "acao") soundAct.play();
+  if(type = "expansao") soundExp.play();
+  if(type = "alinhamento") soundAlign.play();
+  if(type = "acao") soundAct.play();
 
   const dominant = getDominantField();
   const seed = pickSeed(dominant);
@@ -245,20 +245,20 @@ function shouldCallBackend(){
 function feedback(type){
   const fb = document.getElementById("feedback");
 
-  if(type === "observe"){
+  if(type = "observe"){
     incline("pausa", 0.4);
     adjustSensory("pausa");
     fb.innerText =
       "Talvez algo queira ser visto com mais calma.";
   }
 
-  if(type === "ok"){
+  if(type = "ok"){
     incline("alinhamento", 0.4);
     adjustSensory("alinhamento");
     fb.innerText = "Algo se acomoda.";
   }
 
-  if(type === "respire"){
+  if(type = "respire"){
     incline("transicao", 0.4);
     adjustSensory("transicao");
     fb.innerText = "O corpo sabe ajustar.";
@@ -323,4 +323,16 @@ window.enterPortal = enterPortal;
 window.startCalibration = startCalibration;
 window.feedback = feedback;
 
-setState("portal");
+document.addEventListener("DOMContentLoaded", () => {
+  setState("portal");
+
+  document.querySelectorAll(".symbol").forEach(symbol => {
+    symbol.addEventListener("mouseenter", () => {
+      pulseByType(symbol.dataset.type);
+      const clone = soundAlign.cloneNode();
+      clone.volume = 0.15;
+      clone.play();
+    });
+  });
+});
+
