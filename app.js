@@ -10,6 +10,7 @@ function collectEstadoCampo() {
   }))
 }
 
+
 /* ============================================================
    MOTOR DO PORTAL LUMORA — BASE ÉTICA (INVARIANTES)
    ------------------------------------------------------------
@@ -63,6 +64,7 @@ function setState(state){
     document.body.classList.add("dark-mode");
   }
 }
+
 
 /* ===============================
    MOTOR SIMBÓLICO (LICHTARA)
@@ -137,6 +139,7 @@ function pickSeed(field){
   return arr[Math.floor(Math.random() * arr.length)];
 }
 
+
 /* ===============================
    MICROVARIAÇÕES SENSORIAIS
    ------------------------------------------------
@@ -192,6 +195,7 @@ function adjustSensory(field){
   return delay;
 }
 
+
 /* ===============================
    SONS DE ATIVAÇÃO
    ------------------------------------------------
@@ -216,6 +220,7 @@ function pulseByType(type){
   el.classList.add("pulse");
 }
 
+
 /* ===============================
    HOVER → MICROEVENTO
    ------------------------------------------------
@@ -231,6 +236,7 @@ document.querySelectorAll(".symbol").forEach(symbol => {
     clone.play();
   });
 });
+
 
 /* ===============================
    ATIVAÇÃO SIMBÓLICA
@@ -269,6 +275,7 @@ function activate(type){
   portalVisual.style.display = "block";
 }
 
+
 /* ===============================
    TRAVESSIA
    ------------------------------------------------
@@ -284,6 +291,7 @@ function enterPortal(){
     incline("transicao", 0.8);
   }, 900);
 
+  
 /* ===============================
    CALIBRAÇÃO
    ------------------------------------------------
@@ -312,6 +320,7 @@ async function startCalibration(){
   }, 700);
 }
 
+  
 /* ===============================
    FEEDBACK SUAVE
    ------------------------------------------------
@@ -368,6 +377,7 @@ function handleHarmonyResponse(data) {
   }
 }
 
+  
 // ===============================
 // EXPOSIÇÃO CONTROLADA AO HTML
 // (necessário para type="module")
