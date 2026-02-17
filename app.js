@@ -115,8 +115,6 @@ function pickSeed(field){
 /* ===============================
    SENSORIAL
 ================================ */
-const bg = document.getElementById("bg");
-
 function adjustSensory(field){
   let delay = 3500;
   if(field === "pausa") delay = 6000;
@@ -317,17 +315,3 @@ function handleHarmonyResponse(data){
 /* ===============================
    EXPOSIÇÃO AO HTML
 ================================ */
-document.addEventListener("DOMContentLoaded", () => {
-
-  bg = document.getElementById("bg");
-  soundExp   = document.getElementById("sound-exp");
-  soundAlign = document.getElementById("sound-align");
-  soundAct   = document.getElementById("sound-act");
-
-  window.activate = activate;
-  window.enterPortal = enterPortal;
-  window.startCalibration = startCalibration;
-  window.feedback = feedback;
-
-  setState("portal");
-});
