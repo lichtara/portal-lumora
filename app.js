@@ -318,10 +318,18 @@ function handleHarmonyResponse(data){
 /* ===============================
    EXPOSIÇÃO AO HTML
 ================================ */
-window.activate = activate;
-window.enterPortal = enterPortal;
-window.startCalibration = startCalibration;
-window.feedback = feedback;
+document.addEventListener("DOMContentLoaded", () => {
+
+  // Exposição ao HTML
+  window.activate = activate;
+  window.enterPortal = enterPortal;
+  window.startCalibration = startCalibration;
+  window.feedback = feedback;
+
+  // Inicialização segura
+  setState("portal");
+
+});
 
 document.addEventListener("DOMContentLoaded", () => {
   setState("portal");
