@@ -1,5 +1,23 @@
 import { callHarmonyProtocol } from './harmony.js'
 
+const fieldState = {
+  expansao: 0,
+  alinhamento: 0,
+  acao: 0,
+  pausa: 0,
+  transicao: 0
+};
+
+function collectEstadoCampo() {
+  return Object.entries(fieldState).map(([campo, valor]) => ({
+    frequencia: campo === 'expansao' ? 450.0 :
+                campo === 'alinhamento' ? 432.0 :
+                campo === 'acao' ? 480.0 :
+                campo === 'pausa' ? 396.0 : 420.0,
+    amplitude: Math.max(0.1, valor)
+  }))
+}
+
 /* ============================================================
    MOTOR DO PORTAL LUMORA — BASE ÉTICA (INVARIANTES)
    ------------------------------------------------------------
@@ -294,17 +312,27 @@ setTimeout(() => {
    Ajuste do espaço.
    Nunca ajuste do usuário.
 ================================ */
-function startCalibration(){
+async function startCalibration(){
   const sint = document.getElementById("sintonizacao-screen");
   sint.classList.add("fade-out");
 
-  setTimeout(() => {
+  setTimeout(async () => {
     setState("calibracao");
     soundAlign.play();
     incline("alinhamento", 0.6);
+
+    // Espera o corpo chegar
+    setTimeout(async () => {
+      const estadoCampo = collectEstadoCampo()
+      const resposta = await callHarmonyProtocol(estadoCampo)
+
+      if (resposta && resposta.coerencia_vibracional !== undefined) {
+        handleHarmonyResponse(resposta)
+      }
+    }, 1500)
+
   }, 700);
 }
-
 
 /* ===============================
    FEEDBACK SUAVE
@@ -352,4 +380,26 @@ function feedback(type){
    O Portal começa aberto,
    mas nunca exige permanência.
 ================================ */
+
+function handleHarmonyResponse(data) {
+  const c = data.coerencia_vibracional
+
+  document.body.classList.remove(
+    'coerencia-baixa',
+    'coerencia-media',
+    'coerencia-alta',
+    'coerencia-integrada'
+  )
+
+  if (c < 0.4) {
+    document.body.classList.add('coerencia-baixa')
+  } else if (c < 0.6) {
+    document.body.classList.add('coerencia-media')
+  } else if (c < 0.75) {
+    document.body.classList.add('coerencia-alta')
+  } else {
+    document.body.classList.add('coerencia-integrada')
+  }
+}
+
 setState("portal");
