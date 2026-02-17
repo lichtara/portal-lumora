@@ -1,7 +1,35 @@
+/* ============================================================
+   PORTAL LUMORA — STYLE.CSS (REFATORADO)
+   ============================================================ */
+
+/* ---------- DESIGN TOKENS ---------- */
 :root {
-  --bg: #f7f9fb;
-  --deep: #142a3f;
-  --gold: #d8b980;
+  /* Cores base */
+  --color-bg: #f7f9fb;
+  --color-bg-soft: #eef3ff;
+  --color-deep: #142a3f;
+  --color-gold: #d8b980;
+  --color-white: #ffffff;
+
+  /* Cores funcionais */
+  --color-text-primary: var(--color-deep);
+  --color-text-inverse: var(--color-bg);
+
+  /* Raios */
+  --radius-sm: 10px;
+  --radius-md: 18px;
+  --radius-lg: 999px;
+  --radius-round: 50%;
+
+  /* Sombras */
+  --shadow-soft: 0 0 12px rgba(216,185,128,0.15);
+  --shadow-hover: 0 0 22px rgba(216,185,128,0.45);
+  --shadow-card: 0 10px 30px rgba(20,42,63,0.08);
+
+  /* Transições */
+  --transition-slow: 0.8s ease;
+  --transition-medium: 0.6s ease;
+  --transition-fast: 0.3s ease;
 }
 
 /* ---------- BASE ---------- */
@@ -10,10 +38,10 @@ html, body {
   padding: 0;
   height: 100%;
   font-family: system-ui, -apple-system, Segoe UI, sans-serif;
-  background: linear-gradient(180deg, #f7f9fb, #eef3ff);
+  color: var(--color-text-primary);
+  background: linear-gradient(180deg, var(--color-bg), var(--color-bg-soft));
   background-size: 200% 200%;
   animation: bgBreath 12s ease-in-out infinite;
-  color: var(--deep);
 }
 
 @keyframes bgBreath {
@@ -23,10 +51,10 @@ html, body {
 }
 
 #app {
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100vh;
   text-align: center;
 }
 
@@ -53,20 +81,32 @@ html, body {
 .symbol {
   width: 120px;
   height: 120px;
-  border-radius: 50%;
+  border-radius: var(--radius-round);
   border: 1px solid rgba(20,42,63,0.15);
+  background: radial-gradient(
+    circle at center,
+    var(--color-white),
+    var(--color-bg-soft)
+  );
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  background: radial-gradient(circle at center, #ffffff, #eef3f7);
-  transition: all .6s ease;
-  box-shadow: 0 0 12px rgba(216,185,128,0.15);
+  box-shadow: var(--shadow-soft);
+  transition: transform var(--transition-medium),
+              box-shadow var(--transition-medium);
 }
 
 .symbol:hover {
   transform: scale(1.06);
-  box-shadow: 0 0 22px rgba(216,185,128,0.45);
+  box-shadow: var(--shadow-hover);
+}
+
+/* Acessibilidade foco */
+.symbol:focus-visible,
+.portal-btn:focus-visible {
+  outline: 3px solid var(--color-gold);
+  outline-offset: 4px;
 }
 
 /* ---------- FEEDBACK ---------- */
@@ -75,7 +115,7 @@ html, body {
   min-height: 70px;
   font-style: italic;
   opacity: 0;
-  transition: opacity .8s ease;
+  transition: opacity var(--transition-slow);
 }
 
 /* ---------- PORTAL ---------- */
@@ -87,10 +127,15 @@ html, body {
 .portal-btn {
   padding: 12px 24px;
   border: none;
-  background: var(--deep);
-  color: var(--bg);
-  border-radius: 999px;
+  border-radius: var(--radius-lg);
+  background: var(--color-deep);
+  color: var(--color-text-inverse);
   cursor: pointer;
+  transition: background var(--transition-fast);
+}
+
+.portal-btn:hover {
+  background: #0f2235;
 }
 
 /* ---------- PORTAL VISUAL ---------- */
@@ -99,8 +144,12 @@ html, body {
   margin: 40px auto 0;
   width: 180px;
   height: 180px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(216,185,128,.35), rgba(20,42,63,.05));
+  border-radius: var(--radius-round);
+  background: radial-gradient(
+    circle,
+    rgba(216,185,128,0.35),
+    rgba(20,42,63,0.05)
+  );
   animation: breathe 4s ease-in-out infinite;
 }
 
@@ -110,109 +159,50 @@ html, body {
   100% { transform: scale(0.96); opacity: .6; }
 }
 
-/* ---------- MÓDULO PILOTO ---------- */
+/* ---------- MÓDULO ---------- */
 #module {
   display: none;
   max-width: 760px;
 }
 
 .card {
-  background: #ffffff;
+  background: var(--color-white);
   padding: 30px;
-  border-radius: 18px;
-  box-shadow: 0 10px 30px rgba(20,42,63,0.08);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
 }
 
-#calibration {
-  margin-top: 30px;
-  display: none;
-}
-
-#feedback {
-  margin-top: 20px;
-  font-style: italic;
-}
-
-.hint {
-  opacity: 0.8;
-}
-
-/* ----- FADE DE TRAVESSIA ----- */
-.fade-out {
-  animation: fadeOut 0.9s ease forwards;
-}
-
-@keyframes fadeOut {
-  from { opacity: 1; }
-  to   { opacity: 0; }
-}
-
-.fade-in {
-  animation: fadeInSoft 1s ease forwards;
-}
-
-/* ----- MODO ESCURO PÓS-PORTAL ----- */
+/* ---------- DARK MODE ---------- */
 .dark-mode {
   background: linear-gradient(180deg, #0b1623, #142a3f);
-  color: #f7f9fb;
+  color: var(--color-bg);
 }
 
 .dark-mode .card {
   background: #0f1d2c;
-  color: #f7f9fb;
   box-shadow: 0 10px 30px rgba(0,0,0,0.25);
 }
 
 .dark-mode .portal-btn {
-  background: #d8b980;
-  color: #142a3f;
+  background: var(--color-gold);
+  color: var(--color-deep);
 }
 
-/* ----- PULSO SINCRONIZADO DOS SÍMBOLOS ----- */
-.symbol img.pulsing {
-  animation: softPulse 0.7s ease-in-out;
-}
-
-@keyframes softPulse {
-  0%   { transform: scale(1); }
-  50%  { transform: scale(1.08); }
-  100% { transform: scale(1); }
-}
-
-
-@keyframes fadeInSoft {
-  from { opacity: 0; }
-  to   { opacity: 1; }
-}
-
-.symbol.pulse {
-  animation: softPulse 0.7s ease-in-out;
-}
-
+/* ---------- ANIMAÇÕES ---------- */
 @keyframes softPulse {
   0%   { transform: scale(1); }
   50%  { transform: scale(1.07); }
   100% { transform: scale(1); }
 }
 
-.coerencia-baixa {
-  filter: brightness(0.95);
+.symbol.pulse {
+  animation: softPulse 0.7s ease-in-out;
 }
 
-.coerencia-media {
-  filter: brightness(1);
-}
-
-.coerencia-alta {
-  filter: brightness(1.05);
-}
-
-.fade-out {
-  opacity: 0;
-  transition: opacity 0.9s ease;
-}
-
-
-.coerencia-integrada {
-  filter: brightness(1.1) saturate(1.1);
+/* ---------- REDUÇÃO DE MOVIMENTO ---------- */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
 }
