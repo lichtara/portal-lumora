@@ -174,6 +174,13 @@ function activate(type) {
     msg.innerText = seed;
     msg.style.opacity = 1;
   }, delay * 0.3);
+
+   // TRAVESSIA APÓS PRIMEIRO GESTO
+if (calibrationState.interactions === 1) {
+  setTimeout(() => {
+    enterPortal();
+  }, 1800);
+ }  
 }
 
 /* ===============================
@@ -256,3 +263,4 @@ document.addEventListener("DOMContentLoaded", () => {
 
   setState("portal");
 });
+
